@@ -73,13 +73,13 @@ def create_gui():
             server_process = None
             messagebox.showinfo("Information", "Der Server wurde gestoppt.")
 
-    def send_command(command_entry):
+    def send_command(command_entrys):
         nonlocal server_process
         if server_process is not None:
-            command = command_entry.get() + '\n'
+            command = command_entrys.get() + '\n'
             server_process.stdin.write(command.encode())
             server_process.stdin.flush()
-            command_entry.delete(0, tk.END)
+            command_entrys.delete(0, tk.END)
 
     def on_close():
         nonlocal server_process
