@@ -127,7 +127,7 @@ noting yet
 </tr>
 <tr>
 <td>3.10&nbsp;</td>
-<td>I&nbsp;</td>
+<td>✓&nbsp;</td>
 <td>✓&nbsp;</td>
 <td>X&nbsp;</td>
 <td>X&nbsp;</td>
