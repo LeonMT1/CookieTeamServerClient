@@ -1,31 +1,65 @@
-import tkinter as tk
-from tkinter import messagebox, simpledialog, Scale, filedialog
-import subprocess
-import psutil
-import threading
-import os
 import json
+import os
+import subprocess
+import threading
+import tkinter as tk
+from tkinter import messagebox, Scale, filedialog
+
+import psutil
 
 path_file = "paths.json"
 
 
 def get_java_version():
-    result = subprocess.run(["java", "-version"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    if "version" in str(result.stdout):
-        return str(result.stdout).split("\\n")[0].split("\"")[1]
-    else:
+    try:
+        result = subprocess.run(["java", "-version"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        if "version \"17" in str(result.stdout):
+            return str(result.stdout).split("\\n")[0].split("\"")[1]
+        else:
+            return None
+    except FileNotFoundError:
         return None
 
 
+def is_chocolatey_installed():
+    return os.path.exists('C:\\ProgramData\\chocolatey\\choco.exe')
+
+
+def install_chocolatey():
+    if not is_chocolatey_installed():
+        messagebox.showinfo("Information", "Die Chocolatey-Installation beginnt jetzt.")
+        os.system(
+            'start cmd /k "@\"%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile '
+            '-InputFormat None -ExecutionPolicy Bypass -Command \"iex ((New-Object '
+            'System.Net.WebClient).DownloadString(\'https://community.chocolatey.org/install.ps1\'))\" && SET '
+            '\"PATH=%PATH%;%ALLUSERSPROFILE%\\chocolatey\\bin\""')
+        messagebox.showinfo("Information",
+                            "Sobald unten im CMD C:\Users\Benutzername... erscheint, drücken Sie auf okay und starte "
+                            "das Programm neu.")
+
+
 def install_java():
-    java_version = get_java_version()
+    try:
+        java_version = get_java_version()
+    except:
+        java_version = None
     if java_version is None:
-        answer = messagebox.askyesno("Frage", "Java ist nicht installiert. Möchten Sie es installieren?")
-        if answer:
-            subprocess.run(["choco", "install", "openjdk17"], shell=True)
-            messagebox.showinfo("Information", "Java 17 wurde erfolgreich installiert!")
-        else:
-            messagebox.showinfo("Information", "Java wurde nicht installiert.")
+        try:
+            result = subprocess.run(["choco", "--version"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            if "Chocolatey v" in str(result.stdout):
+                messagebox.showinfo("Information", "Die Java-Installation beginnt jetzt.")
+                os.system('start cmd /k "choco install openjdk17"')
+                messagebox.showinfo("Information", "Die Java-Installation wurde abgeschlossen.")
+            else:
+                install_chocolatey()
+                messagebox.showinfo("Information", "Die Java-Installation beginnt jetzt.")
+                os.system('start cmd /k "choco install openjdk17"')
+                messagebox.showinfo("Information", "Die Java-Installation wurde abgeschlossen.")
+        except FileNotFoundError:
+            install_chocolatey()
+            messagebox.showinfo("Information", "Die Java-Installation beginnt jetzt.")
+            os.system('start cmd /k "choco install openjdk17"')
+            messagebox.showinfo("Information", "Die Java-Installation wurde abgeschlossen.")
     else:
         messagebox.showinfo("Information",
                             f"Java ist bereits installiert. Die installierte Version ist {java_version}.")
@@ -44,7 +78,7 @@ def read_output(process, console):
 def create_server(server_jar_path, ram_allocation, console, server_dir):
     command = f"java -Xmx{ram_allocation}G -Xms{ram_allocation}G -jar {server_jar_path} nogui"
     process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                               cwd=server_dir)
+                               cwd=server_dir, creationflags=subprocess.CREATE_NO_WINDOW)
     threading.Thread(target=read_output, args=(process, console)).start()
     return process
 
