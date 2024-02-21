@@ -53,21 +53,23 @@ noting yet
 </table>
 
 ### How to use
-1. Have you installed Python on your computer? When not, download it from the official website: [Python](https://www.python.org/downloads/)
-2. Download the main.py and requirements.txt files from this repository.
-3. Open the terminal and navigate to the directory where the files are located.
-4. Run the following command to install the required modules:
+1. Go to Releases and download the latest version.
+2. Start the downloaded file (If Java is not installed, the program will close and you have to download Java).
+3. Then choose the amount of RAM you want to allocate to the server (on the top of the window).
+4. Press "Starte Server" and then first choose your Server Jar (You can download a Server Jar from here: [Paper](https://papermc.io/)).
+5. Then choose the directory where the server files should be located.
+6. Voilà! The server is now running, and you can connect to it with the IP: `localhost`.
+
+### PyInstaller Command
+First you need to install PyInstaller with the following command:
 ```
-pip install -r requirements.txt 
+pip install pyinstaller
 ```
-5. Run the main.py with Python by using dubble click or the following command:
+Then you can use the following command to create a executable file:
 ```
-python main.py or python3 main.py
+pyinstaller --noconfirm --onefile --windowed --icon "icon.ico" --name "Server Client" --hide-console "hide-early"  "main.py"
 ```
-6. Then choose the amount of RAM you want to allocate to the server (on the top of the window).
-7. Press "Starte Server" and then first choose your Server Jar (You can download a Server Jar from here: [Paper](https://papermc.io/)).
-8. Then choose the directory where the server files should be located.
-9. Voilà! The server is now running, and you can connect to it with the IP: `localhost`.
+Your executable file is now in the `dist` directory.
 
 ### To-Do List
 - [ ] Create a simple GUI and Beautify it
@@ -141,21 +143,23 @@ noting yet
 </table>
 
 ### How to use
-1. Haben Sie Python auf Ihrem Computer installiert? Wenn nicht, laden Sie es von der offiziellen Website herunter: [Python](https://www.python.org/downloads/)
-2. Laden Sie die Dateien main.py und requirements.txt aus diesem Repository herunter.
-3. Öffnen Sie das Terminal und navigieren Sie zu dem Verzeichnis, in dem sich die Dateien befinden.
-4. Führen Sie den folgenden Befehl aus, um die erforderlichen Module zu installieren: ```
+1. Gehen Sie zu Releases und laden Sie die neuste Version herunter.
+2. Starten Sie die heruntergeladene Datei (Wenn Java nicht installiert ist, schließt sich das Programm und sie müssen Java herunterladen).
+3. Wählen Sie dann die Menge des Arbeitsspeichers, die Sie dem Server zuweisen möchten (oben im Fenster).
+4. Drücken Sie auf "Starte Server" und wählen Sie dann zuerst Ihr Server Jar (Sie können ein Server Jar von hier herunterladen: [Paper](https://papermc.io/)).
+5. Wählen Sie dann das Verzeichnis, in dem die Serverdateien gespeichert werden sollen.
+6. Voilà! Der Server läuft jetzt, und Sie können sich mit der IP-Adresse `localhost` mit ihm verbinden.
+
+### PyInstaller Command
+Zuerst müssen Sie PyInstaller mit dem folgenden Befehl installieren:
 ```
-pip install -r requirements.txt
+pip install pyinstaller
 ```
-5. Führen Sie die Datei main.py mit Python aus, indem Sie auf dubble klicken oder den folgenden Befehl eingeben:
+Dann können Sie den folgenden Befehl verwenden, um eine ausführbare Datei zu erstellen:
 ```
-python main.py or python3 main.py
+pyinstaller --noconfirm --onefile --windowed --icon "icon.ico" --name "Server Client" --hide-console "hide-early"  "main.py"
 ```
-6. Wählen Sie dann die Menge des Arbeitsspeichers, die Sie dem Server zuweisen möchten (oben im Fenster).
-7. Drücken Sie auf "Starte Server" und wählen Sie dann zuerst Ihr Server Jar (Sie können ein Server Jar von hier herunterladen: [Paper](https://papermc.io/)).
-8. Wählen Sie dann das Verzeichnis, in dem die Serverdateien gespeichert werden sollen.
-9. Voilà! Der Server läuft jetzt, und Sie können sich mit der IP-Adresse `localhost` mit ihm verbinden.
+Ihre ausführbare Datei befindet sich jetzt im Verzeichnis `dist`.
 
 ### To-Do-Liste
 - [ ] Eine einfache GUI erstellen und verschönern
