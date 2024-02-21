@@ -34,7 +34,7 @@ def install_chocolatey():
             'System.Net.WebClient).DownloadString(\'https://community.chocolatey.org/install.ps1\'))\" && SET '
             '\"PATH=%PATH%;%ALLUSERSPROFILE%\\chocolatey\\bin\""')
         messagebox.showinfo("Information",
-                            "Sobald unten im CMD C:\Users\Benutzername... erscheint, drücken Sie auf okay und starte "
+                            "Sobald unten im CMD C:\\Users\\Benutzername... erscheint, drücken Sie auf okay und starte "
                             "das Programm neu.")
 
 
